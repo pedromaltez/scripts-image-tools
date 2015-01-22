@@ -27,8 +27,8 @@ if [[ $# -ne 2 ]]; then
   exit 1
 fi
 
-source_directory=$(readlink -ev $1)
-target_directory=$(readlink -ev $2)
+source_directory=$1
+target_directory=$2
 
 for file in $source_directory/*; do
   if [[ -f $file ]]; then
@@ -42,8 +42,8 @@ for file in $source_directory/*; do
 
       create_date=$(echo $create_date | perl -ne 'print "$1$2$3" if /(\d{4}):(\d{2}):(\d{2})/')
       date_directory="$target_directory/$create_date"
-      mkdir -p $date_directory
-      mv $file $date_directory
+      mkdir -p "$date_directory"
+      mv "$file" "$date_directory"
 
     else
       echo "CreateDate doesn't match %YYYY:%MM:%DD: skipping $file"
